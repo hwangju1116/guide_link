@@ -1,5 +1,3 @@
-# guide_link
-a2ui &amp; mcp  실습가이드 문서입니다
 # A2UI Agent and Atlassian MCP Server Deployment
 
 # **Overview**
