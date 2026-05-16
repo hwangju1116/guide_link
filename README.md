@@ -53,6 +53,8 @@
    1. 내비게이션 메뉴에서 **Gemini Enterprise Agent Platform > Workbench**를 클릭합니다.
    2. 할당된 인스턴스 옆의 **Open JupyterLab**을 클릭합니다.
    3. JupyterLab 런처의 *Other* 섹션 아래에 있는 **Terminal**을 클릭하여 새 터미널 세션을 엽니다.
+   <img width="1910" height="923" alt="Screenshot 2026-05-07 at 3 35 58 PM" src="https://github.com/user-attachments/assets/abc48e1b-04da-48e8-9265-fd61bca48b55" />
+
    4. 아래 명령어를 실행하여 리포지토리를 복제하고 의존성 관리 도구(`uv`)를 설치한 뒤 환경 설정 파일을 생성합니다.
       ```bash
       git clone https://github.com/hwangju1116/a2ui-agent.git
@@ -67,7 +69,7 @@
       export CLIENT_ID=[Task 1에서 복사한 Client ID]
       export CLIENT_SECRET=[Task 1에서 복사한 Client Secret]
 
-      curl -X POST      -H "Authorization: Bearer $(gcloud auth print-access-token)"      -H "Content-Type: application/json"      -H "X-Goog-User-Project: ${PROJECT_ID}"      "https://global-discoveryengine.googleapis.com/v1alpha/projects/${PROJECT_ID}/locations/global/authorizations?authorizationId=${AUTH_ID}"      -d '{
+      curl -X POST -H "Authorization: Bearer $(gcloud auth print-access-token)" -H "Content-Type: application/json" -H "X-Goog-User-Project: ${PROJECT_ID}"  "https://global-discoveryengine.googleapis.com/v1alpha/projects/${PROJECT_ID}/locations/global/authorizations?authorizationId=${AUTH_ID}" -d '{
             "name": "projects/'"${PROJECT_ID}"'/locations/global/authorizations/'"${AUTH_ID}"'",
             "serverSideOauth2": {
                "clientId": "'"${CLIENT_ID}"'",
@@ -114,7 +116,7 @@
    터미널 환경에서 아래 명령어를 실행하여 한 줄로 권한을 부여할 수 있습니다. (`--member` 부분의 이메일 주소를 본인의 타겟 서비스 계정으로 변경하세요.)
    ```bash
    # 현재 활성화된 프로젝트에 자동으로 권한을 부여하는 명령어 예시
-   gcloud projects add-iam-policy-binding $(gcloud config get-value project)    --member="serviceAccount:student-04-930edeff2819@qwiklabs.net"    --role="roles/aiplatform.user"
+   gcloud projects add-iam-policy-binding $(gcloud config get-value project)    --member="serviceAccount:[EMAIL_ADDRESS]"    --role="roles/aiplatform.user"
    ```
 
    ---
@@ -137,7 +139,7 @@
       ```
    3. 아래 명령어를 실행하여 MCP 서버를 Google Cloud Run에 배포합니다. `--source .` 옵션을 통해 소스코드를 자동으로 빌드, 이미지화 및 배포까지 원스톱으로 처리합니다.
       ```bash
-      gcloud run deploy atlassian-mcp-server      --source .      --set-env-vars=JIRA_URL="$(grep JIRA_URL .env | cut -d '=' -f2-)",JIRA_EMAIL="$(grep JIRA_EMAIL .env | cut -d '=' -f2-)",JIRA_API_TOKEN="$(grep JIRA_API_TOKEN .env | cut -d '=' -f2-)"      --region us-central1      --allow-unauthenticated      --project=$GOOGLE_CLOUD_PROJECT
+      gcloud run deploy atlassian-mcp-server --source . --set-env-vars=JIRA_URL="$(grep JIRA_URL .env | cut -d '=' -f2-)",JIRA_EMAIL="$(grep JIRA_EMAIL .env | cut -d '=' -f2-)",JIRA_API_TOKEN="$(grep JIRA_API_TOKEN .env | cut -d '=' -f2-)" --region us-central1 --allow-unauthenticated --project=$GOOGLE_CLOUD_PROJECT
       ```
    4. 배포가 완료되면 터미널 화면에 표시되는 **Service URL**을 복사하여 보관합니다.
 
@@ -149,6 +151,8 @@
    1. Google Cloud Console 검색창에서 **Cloud Run**을 검색하여 이동한 후 **Services** 목록을 확인합니다.
    2. 배포한 `atlassian-mcp-server` 인스턴스 왼쪽의 **체크박스**를 선택한 후, 우측 패널 또는 상단 메뉴에서 **Permissions(권한)** 탭으로 진입합니다.
    3. **Add Principal (구성원 추가)**을 클릭합니다.
+   <img width="1464" height="799" alt="Screenshot 2026-05-09 at 8 01 39 PM" src="https://github.com/user-attachments/assets/2ecfa29a-df28-4635-acc5-a4431bf026fa" />
+
    4. 설정을 다음과 같이 입력한 후 저장합니다.
       - **New principals:** `allUsers`
       - **Role:** `Cloud Run Invoker (Cloud Run 호출자)`
@@ -185,6 +189,8 @@
    ### Task 8. Activate Custom MCP Method
    1. **App > Data stores**로 이동한 후 방금 등록한 **Custom MCP**를 클릭합니다.
    2. **Actions > Refresh Custom Actions**를 클릭하여 MCP 도구(Tools)들을 최종 활성화합니다.
+   <img width="1464" height="747" alt="Screenshot 2026-05-09 at 8 05 47 PM" src="https://github.com/user-attachments/assets/9aee5a7f-6dfe-4da6-89b8-50691795722e" />
+
 
    ---
 
