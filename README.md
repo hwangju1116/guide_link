@@ -1,4 +1,3 @@
-<img width="1105" height="604" alt="Screenshot 2026-05-17 at 3 12 23 AM" src="https://github.com/user-attachments/assets/ea53b259-58f5-46eb-a1b9-2b7118ff484a" />
    # A2UI Agent and Atlassian MCP Server Deployment
 
    ## 📋 Overview
