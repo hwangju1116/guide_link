@@ -1,3 +1,4 @@
+<img width="1105" height="604" alt="Screenshot 2026-05-17 at 3 12 23 AM" src="https://github.com/user-attachments/assets/ea53b259-58f5-46eb-a1b9-2b7118ff484a" />
    # A2UI Agent and Atlassian MCP Server Deployment
 
    ## 📋 Overview
@@ -116,7 +117,7 @@
    터미널 환경에서 아래 명령어를 실행하여 한 줄로 권한을 부여할 수 있습니다. (`--member` 부분의 이메일 주소를 본인의 타겟 서비스 계정으로 변경하세요.)
    ```bash
    # 현재 활성화된 프로젝트에 자동으로 권한을 부여하는 명령어 예시
-   gcloud projects add-iam-policy-binding $(gcloud config get-value project)    --member="serviceAccount:[EMAIL_ADDRESS]"    --role="roles/aiplatform.user"
+   gcloud projects add-iam-policy-binding $(gcloud config get-value project) --member="serviceAccount:[EMAIL_ADDRESS]" --role="roles/aiplatform.user"
    ```
 
    ---
@@ -163,7 +164,7 @@
    Gemini Enterprise에 배포한 Custom MCP 서버를 등록합니다.
 
    1. 새 브라우저 탭을 열고 **Gemini Enterprise 콘솔**로 이동합니다.
-   2. 데이터 스토어(Data Store) 메뉴에서 **Custom MCP Server 추가**를 클릭합니다.
+   2. 데이터 스토어(Data Store) 메뉴에서 **Create data store**를 클릭 후 **Custome MCP Server** 클릭합니다.
    3. 인증 및 연결을 위해 다음 필수 정보들을 입력합니다.
       - **MCP 서버 URL:** `https://<본인의_Cloud_Run_도메인>/mcp`
       - **승인 URL:** `https://accounts.google.com/o/oauth2/v2/auth`
@@ -199,6 +200,8 @@
 
    1. **Gemini Enterprise App**의 채팅 인터페이스(Chat UI)로 이동합니다.
    2. **Connector** 아이콘을 클릭한 후, 등록한 **mcp data connector** 옆의 **Authorize** 버튼을 눌러 연동을 승인해 줍니다.
+   <img width="1105" height="604" alt="Screenshot 2026-05-17 at 3 12 23 AM" src="https://github.com/user-attachments/assets/9385cb39-8c47-421e-8c12-cb81f3335665" />
+
    3. 채팅창에 아래 프롬프트를 입력하고 연동 시나리오가 정상 작동하는지 확인합니다.
       
       **📝 테스트 프롬프트 예시:**
