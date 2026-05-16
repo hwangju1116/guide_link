@@ -19,30 +19,31 @@
    ### Task 1. Enable APIs and Create OAuth Credentials
    인증 및 연동을 위한 필수 API를 활성화하고 OAuth 2.0 클라이언트를 생성합니다.
 
-   1. **Google Cloud Console**의 내비게이션 메뉴에서 **APIs & Services > Library**를 클릭합니다.
-   2. 다음 API를 검색하여 **Enable(사용)**을 클릭합니다.
+   1. **Agent Platform**에 진입하여 화면 상단에 있는 **Enable API** 버튼을 클릭하여 필요한 API들을 활성화합니다.
+   2. **Google Cloud Console**의 내비게이션 메뉴에서 **APIs & Services > Library**를 클릭합니다.
+   3. 다음 API를 검색하여 **Enable(사용)**을 클릭합니다.
       - `Discovery Engine API`
-   3. **APIs & Services > Credentials**로 이동합니다.
-   4. **Create Credentials > OAuth client ID**를 클릭합니다.
-   5. **Application type**에서 `Web application`을 선택하고, Name은 `agent-auth`로 지정합니다.
-   6. **Authorized redirect URIs (승인된 리디렉션 URI)** 섹션에서 **Add URI**를 클릭하고 다음 URL을 추가합니다.
+   4. **APIs & Services > Credentials**로 이동합니다.
+   5. **Create Credentials > OAuth client ID**를 클릭합니다.
+   6. **Application type**에서 `Web application`을 선택하고, Name은 `agent-auth`로 지정합니다.
+   7. **Authorized redirect URIs (승인된 리디렉션 URI)** 섹션에서 **Add URI**를 클릭하고 다음 URL을 추가합니다.
       ```text
       https://vertexaisearch.cloud.google.com/oauth-redirect
       ```
-   7. **Create**를 클릭합니다.
-   8. 화면에 나타난 **Client ID**와 **Client Secret**을 복사하여 안전한 곳에 보관합니다. *(이 정보는 이후 작업에서 공통으로 사용됩니다.)*
+   8. **Create**를 클릭합니다.
+   9. 화면에 나타난 **Client ID**와 **Client Secret**을 복사하여 안전한 곳에 보관합니다. *(이 정보는 이후 작업에서 공통으로 사용됩니다.)*
 
    ---
 
    ### Task 2. Create and Set Gemini Enterprise App
    에이전트와 MCP 서버를 연동하여 사용할 Gemini Enterprise App을 생성하고 identity를 설정합니다.
 
-   1. Google Cloud Console 검색창에서 **Gemini Enterprise**를 검색합니다.
-   2. 검색 결과에서 **`30-day free trial`**을 선택한 후 **`Create App`**을 진행합니다. *(이름은 기본값을 사용하거나 원하는 대로 지정 가능합니다.)*
-   3. App 생성이 완료되면, 화면 하단의 **`Set up identity`**를 클릭합니다.
-   4. **`Use Google Identity`**를 선택한 후 **`Confirm`**을 눌러 설정을 완료합니다.
+   1. Google Cloud Console 검색창에서 **Gemini Enterprise**를 검색 후 **`Create App`**을 진행합니다. 
+   *(이름은 기본값을 사용하거나 원하는 대로 지정 가능합니다.)*
+   2. App 생성이 완료되면, 화면 하단의 **`Set up identity`**를 클릭합니다.
+   3. **`Use Google Identity`**를 선택한 후 **`Confirm`**을 눌러 설정을 완료합니다.
       > **💡 참고:** 이 과정은 Gemini Enterprise를 안전하게 사용하기 위해 로그인과 데이터 접근 권한을 관리할 'Google Cloud Identity'를 연동하는 작업입니다.
-   5. 생성된 앱의 **ID(`App ID`)**를 별도로 기록해 둡니다. *(이후 환경 설정 파일에 사용됩니다.)*
+   4. 생성된 앱의 **ID(`App ID`)**를 별도로 기록해 둡니다. *(이후 환경 설정 파일에 사용됩니다.)*
 
    ---
 
