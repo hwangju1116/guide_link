@@ -9,11 +9,11 @@
 
    ## 🚀 Step-by-Step Deployment Guide
 
-   ### Task 1. Enable APIs and Create OAuth Credentials
+   ### Task 1. Create OAuth Credentials
    인증 및 연동을 위한 필수 API를 활성화하고 OAuth 2.0 클라이언트를 생성합니다.
 
    1. **APIs & Services > Credentials**로 이동합니다.
-   2. **Create Credentials > OAuth client ID**를 클릭합니다. *(앞전에 만든 auth정보를 그대로 사용하셔도됩니다.)*
+   2. **Create Credentials > OAuth client ID**를 클릭합니다. 
    3. **Application type**에서 `Web application`을 선택하고, Name은 `agent-auth`로 지정합니다.
    4. **Authorized redirect URIs (승인된 리디렉션 URI)** 섹션에서 **Add URI**를 클릭하고 다음 URL을 추가합니다.
       ```text
