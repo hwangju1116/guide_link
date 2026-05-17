@@ -1,16 +1,9 @@
-   # A2UI Agent and Atlassian MCP Server Deployment
+   # A2UI Agent and Google Drive Summarizer MCP Server Deployment
 
    ## 📋 Overview
    이 실습에서는 Gemini Enterprise Agent Platform을 기반으로 두 가지 에이전트를 배포하고 연동합니다.
    1. **A2UI 기반 삼성 제품 스펙 비교 에이전트**
-   2. **Atlassian Jira 및 Confluence와 연동하여 업무를 자동화하는 MCP(Model Context Protocol) 서버**
-
-   ---
-
-   ## 🛠️ Setup and Requirements
-
-   ### Qwiklabs Setup & Activate Cloud Shell
-   실습 시작 전 Qwiklabs 가이드에 따라 Google Cloud 환경을 준비하고 Cloud Shell을 활성화하세요.
+   2. **구글 드라이브 파일 내용을 읽고 요약하는 MCP(Model Context Protocol) 서버**
 
    ---
 
@@ -24,7 +17,7 @@
    3. 다음 API를 검색하여 **Enable(사용)**을 클릭합니다.
       - `Discovery Engine API`
    4. **APIs & Services > Credentials**로 이동합니다.
-   5. **Create Credentials > OAuth client ID**를 클릭합니다.
+   5. **Create Credentials > OAuth client ID**를 클릭합니다. *(앞전에 만든 auth정보를 그대로 사용하셔도됩니다.)*
    6. **Application type**에서 `Web application`을 선택하고, Name은 `agent-auth`로 지정합니다.
    7. **Authorized redirect URIs (승인된 리디렉션 URI)** 섹션에서 **Add URI**를 클릭하고 다음 URL을 추가합니다.
       ```text
@@ -98,54 +91,27 @@
 
    ---
 
-   ### Task 4. Configure Agent Access Control
-   배포된 에이전트를 Gemini Enterprise 등의 외부 시스템에서 에러 없이 호출할 수 있도록 호출 주체(서비스 계정)에 권한을 부여합니다. 권한이 없을 경우 `401 Unauthorized` 에러가 발생합니다.
-
-   아래 두 가지 방법 중 하나를 선택하여 진행하세요.
-
-   #### 방법 1: Google Cloud Console (웹 GUI) 이용
-   1. **IAM 페이지 이동**: Google Cloud 콘솔 메뉴에서 **IAM & Admin > IAM**으로 이동합니다.
-   2. **서비스 계정 확인**: 에이전트를 호출할 주체가 되는 서비스 계정을 찾습니다.
-      - *Tip:* Gemini Enterprise를 사용하는 경우 일반적으로 `service-PROJECT_NUMBER@gcp-sa-discoveryengine.iam.gserviceaccount.com` 형태의 계정입니다.
-   3. **권한 수정**: 해당 서비스 계정 우측의 **수정(연필 모양 아이콘)**을 클릭합니다.
-   4. **역할 추가**: **Add Another Role (다른 역할 추가)**을 클릭합니다.
-   5. **역할 선택**: 검색창에 `Vertex AI User` 또는 `aiplatform.user`를 입력하고 **Vertex AI 사용자 (Vertex AI User)** 역할을 선택합니다.
-   6. **저장**: **Save**를 눌러 권한 반영을 완료합니다.
-
-   #### 방법 2: gcloud CLI (터미널) 이용
-   터미널 환경에서 아래 명령어를 실행하여 한 줄로 권한을 부여할 수 있습니다. (`--member` 부분의 이메일 주소를 본인의 타겟 서비스 계정으로 변경하세요.)
+   ### Task 4. Build and Deploy the Atlassian MCP Server
+   구글 드라이브 파일 요약을 수행하는 MCP 서버를 Cloud Run에 배포합니다.
+   
+   1. Cloud Shell 환경에서 아래 명령어를 실행하여 리포지토리를 클론하고 배포를 진행합니다.
+   
    ```bash
-   # 현재 활성화된 프로젝트에 자동으로 권한을 부여하는 명령어 예시
-   gcloud projects add-iam-policy-binding $(gcloud config get-value project) --member="serviceAccount:[EMAIL_ADDRESS]" --role="roles/aiplatform.user"
+   git clone https://github.com/hwangju1116/gdrive_reader_mcp.git
+   cd gdrive_reader_mcp
+   
+   gcloud run deploy gdrive-summarizer \
+     --source . \
+     --region us-central1 \
+     --allow-unauthenticated \
+     --set-env-vars CLIENT_ID="[Task 1에서 생성한 본인의_Client_ID]"
    ```
+   
+   > **⚠️ 중요 (보안 및 아키텍처):**
+   > 현재 설정은 Cloud Run 자체의 접근 제어를 사용하면 Gemini Enterprise가 보내는 토큰과 충돌이 발생합니다. 따라서 서버 자체는 누구나 접근 가능하게 열어두되(`--allow-unauthenticated`), **FastMCP 서버 내부에서 구글 토큰의 유효성을 검증**하는 구조를 취하고 있습니다.
 
    ---
-
-   ### Task 5. Build and Deploy the Atlassian MCP Server
-   Atlassian(Jira/Confluence) 연동을 위한 MCP 서버를 빌드하고 Cloud Run에 소스 배포합니다.
-
-   1. 기존 터미널 창에서 상위 디렉터리로 이동한 후, 두 번째 리포지토리를 복제합니다.
-      ```bash
-      cd ~
-      git clone https://github.com/hwangju1116/jira_confluence_mcp.git
-      cd jira_confluence_mcp
-      touch .env
-      ```
-   2. `jira_confluence_mcp` 폴더 안의 `.env` 파일을 열고, 실제 Atlassian 계정 정보에 맞추어 아래 내용을 입력 후 저장합니다.
-      ```env
-      JIRA_URL=[본인의-지라-URL]
-      JIRA_EMAIL=[본인의-지라-이메일]
-      JIRA_API_TOKEN=[본인의-지라-API-토큰]
-      ```
-   3. 아래 명령어를 실행하여 MCP 서버를 Google Cloud Run에 배포합니다. `--source .` 옵션을 통해 소스코드를 자동으로 빌드, 이미지화 및 배포까지 원스톱으로 처리합니다.
-      ```bash
-      gcloud run deploy atlassian-mcp-server --source . --set-env-vars=JIRA_URL="$(grep JIRA_URL .env | cut -d '=' -f2-)",JIRA_EMAIL="$(grep JIRA_EMAIL .env | cut -d '=' -f2-)",JIRA_API_TOKEN="$(grep JIRA_API_TOKEN .env | cut -d '=' -f2-)" --region us-central1 --allow-unauthenticated --project=$GOOGLE_CLOUD_PROJECT
-      ```
-   4. 배포가 완료되면 터미널 화면에 표시되는 **Service URL**을 복사하여 보관합니다.
-
-   ---
-
-   ### Task 6. Add Permissions to Cloud Run
+   ### Task 5. Add Permissions to Cloud Run
    배포된 Cloud Run 서비스가 외부(Gemini Enterprise)로부터 요청을 받을 수 있도록 미인증 호출 권한을 명확히 설정합니다.
 
    1. Google Cloud Console 검색창에서 **Cloud Run**을 검색하여 이동한 후 **Services** 목록을 확인합니다.
@@ -156,52 +122,62 @@
    4. 설정을 다음과 같이 입력한 후 저장합니다.
       - **New principals:** `allUsers`
       - **Role:** `Cloud Run Invoker (Cloud Run 호출자)`
+     
 
+   > ** cloud shell 에서 한번에 설정하는 법:**
+  ```bash
+  gcloud run services add-iam-policy-binding gdrive-summarizer --region="us-central1" --member="allUsers" --role="roles/run.invoker"
+  ```
+   
    ---
-
-   ### Task 7. Register the MCP Data Store in Gemini Enterprise
+   
+   ### Task 6. Register the MCP Data Store in Gemini Enterprise
+   
    Gemini Enterprise에 배포한 Custom MCP 서버를 등록합니다.
-
+   
    1. 새 브라우저 탭을 열고 **Gemini Enterprise 콘솔**로 이동합니다.
-   2. 데이터 스토어(Data Store) 메뉴에서 **Create data store**를 클릭 후 **Custome MCP Server** 클릭합니다.
+   2. 데이터 스토어(Data Store) 메뉴에서 **Create data store**를 클릭 후 **Custom MCP Server**를 클릭합니다.
    3. 인증 및 연결을 위해 다음 필수 정보들을 입력합니다.
-      - **MCP 서버 URL:** `https://<본인의_Cloud_Run_도메인>/mcp`
-      - **승인 URL:** `https://accounts.google.com/o/oauth2/v2/auth`
-      - **승인 URL 매개변수:** `&access_type=offline`
-      - **토큰 URL:** `https://oauth2.googleapis.com/token`
-      - **클라이언트 ID / 비밀번호:** Task 1에서 발급받은 Credential 정보 입력
-      - **범위 (Scopes):** `https://www.googleapis.com/auth/cloud-platform`
+   	* **MCP 서버 URL:** `https://<본인의_Cloud_Run_도메인>/mcp` *(또는 환경에 따라 `/mcp` 없이 입력)*
+   	* **승인 URL:** `https://accounts.google.com/o/oauth2/v2/auth`
+   	* **승인 URL 매개변수:** `&access_type=offline&prompt=consent`
+   	* **토큰 URL:** `https://oauth2.googleapis.com/token`
+   	* **클라이언트 ID / 비밀번호:** Task 1에서 발급받은 Credential 정보 입력
+   	* **범위 (Scopes):** `https://www.googleapis.com/auth/userinfo.email https://www.googleapis.com/auth/userinfo.profile https://www.googleapis.com/auth/drive.readonly`
    4. **로그인** 버튼을 눌러 인증 권한을 승인한 후 저장합니다.
-   5. **Description** 란에 아래 텍스트를 정확히 입력합니다. *(Gemini Enterprise가 MCP 서버의 목적을 이해하고 알맞게 호출하도록 유도하는 설정입니다.)*
-      ```text
-      This MCP server connects to Atlassian services (Jira and Confluence). It provides tools to read and search Confluence pages, and create new pages. It also includes tools to search, retrieve, and create Jira issues. Use this server to analyze planning documents in Confluence and manage tasks in Jira.
-      ```
-   6. **Agent Instructions**에 다음 내부 가이드라인 내용을 추가합니다.
-      ```text
-      1. For read-only actions (searching or reading Confluence pages and Jira issues), proceed immediately without asking for user confirmation.
-      2. When asked to CREATE a Jira ticket or a Confluence page, you MUST generate a draft of the content first and ask the user for confirmation before executing the creation tool.
-      3. If a space key or project key is not provided by the user, use list_confluence_spaces or list_jira_projects to find the appropriate key, and confirm with the user before proceeding with that key.
-      ```
-   7. **Create**를 눌러 데이터 스토어 등록을 완료합니다.
+   5. **Description** 란에 아래 텍스트를 정확히 입력합니다. *(Gemini Enterprise가 MCP 서버의 목적을 이해하도록 돕는 설정입니다.)*
+   
+   ```text
+   This MCP server connects to Google Drive and provides a tool to read and summarize the content of text files in the user's drive.
+   ```
+
+   6. **Create**를 눌러 데이터 스토어 등록을 완료합니다.
 
    ---
 
-   ### Task 8. Activate Custom MCP Method
+   ### Task 7. Activate Custom MCP Method
    1. **App > Data stores**로 이동한 후 방금 등록한 **Custom MCP**를 클릭합니다.
    2. **Actions > Refresh Custom Actions**를 클릭하여 MCP 도구(Tools)들을 최종 활성화합니다.
    <img width="1464" height="747" alt="Screenshot 2026-05-09 at 8 05 47 PM" src="https://github.com/user-attachments/assets/9aee5a7f-6dfe-4da6-89b8-50691795722e" />
 
 
    ---
+   ### Task 8. Automate Workflows with Gemini
 
-   ### Task 9. Automate Workflows with Gemini
    모든 설정이 완료되었습니다. 이제 에이전트와 연동하여 실제 업무 자동화 워크플로우를 테스트합니다.
-
+   
    1. **Gemini Enterprise App**의 채팅 인터페이스(Chat UI)로 이동합니다.
-   2. **Connector** 아이콘을 클릭한 후, 등록한 **mcp data connector** 옆의 **Authorize** 버튼을 눌러 연동을 승인해 줍니다.
+   2. **Connector** 아이콘을 클릭한 후, 등록한 **mcp data connector** 옆의 **Authorize** 버튼을 눌러 구글 드라이브 연동을 승인해 줍니다.
+
    <img width="1105" height="604" alt="Screenshot 2026-05-17 at 3 12 23 AM" src="https://github.com/user-attachments/assets/9385cb39-8c47-421e-8c12-cb81f3335665" />
 
    3. 채팅창에 아래 프롬프트를 입력하고 연동 시나리오가 정상 작동하는지 확인합니다.
       
       **📝 테스트 프롬프트 예시:**
-      > "컨플루언스에서 '카메라 개발 계획' 문서를 검색해서 읽은 뒤, 그 내용을 바탕으로 Jira에 티켓들을 생성해줘."
+      > "내 구글 드라이브에 있는 최근 텍스트 파일들을 읽고 주요 내용을 요약해 줘."
+      
+
+   ## 📝 제공 기능 (Tools)
+   
+   해당 MCP 서버는 현재 다음의 도구를 지원합니다:
+   * `summarize_drive_files`: 사용자의 구글 드라이브 내 텍스트 파일(상위 5개)을 가져와서 요약본을 제공합니다. (현재 `text/plain` 파일 형식 지원)
