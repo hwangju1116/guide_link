@@ -12,18 +12,15 @@
    ### Task 1. Enable APIs and Create OAuth Credentials
    인증 및 연동을 위한 필수 API를 활성화하고 OAuth 2.0 클라이언트를 생성합니다.
 
-   1. **Google Cloud Console**의 내비게이션 메뉴에서 **APIs & Services > Library**를 클릭합니다.
-   2. 다음 API를 검색하여 **Enable(사용)**을 클릭합니다.
-      - `Discovery Engine API`
-   3. **APIs & Services > Credentials**로 이동합니다.
-   4. **Create Credentials > OAuth client ID**를 클릭합니다. *(앞전에 만든 auth정보를 그대로 사용하셔도됩니다.)*
-   5. **Application type**에서 `Web application`을 선택하고, Name은 `agent-auth`로 지정합니다.
-   6. **Authorized redirect URIs (승인된 리디렉션 URI)** 섹션에서 **Add URI**를 클릭하고 다음 URL을 추가합니다.
+   1. **APIs & Services > Credentials**로 이동합니다.
+   2. **Create Credentials > OAuth client ID**를 클릭합니다. *(앞전에 만든 auth정보를 그대로 사용하셔도됩니다.)*
+   3. **Application type**에서 `Web application`을 선택하고, Name은 `agent-auth`로 지정합니다.
+   4. **Authorized redirect URIs (승인된 리디렉션 URI)** 섹션에서 **Add URI**를 클릭하고 다음 URL을 추가합니다.
       ```text
       https://vertexaisearch.cloud.google.com/oauth-redirect
       ```
-   7. **Create**를 클릭합니다.
-   8. 화면에 나타난 **Client ID**와 **Client Secret**을 복사하여 안전한 곳에 보관합니다. *(이 정보는 이후 작업에서 공통으로 사용됩니다.)*
+   5. **Create**를 클릭합니다.
+   6. 화면에 나타난 **Client ID**와 **Client Secret**을 복사하여 안전한 곳에 보관합니다. *(이 정보는 이후 작업에서 공통으로 사용됩니다.)*
 
    ---
 
