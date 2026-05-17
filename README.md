@@ -155,7 +155,8 @@
    ### Task 7. Activate Custom MCP Method
    1. **App > Data stores**로 이동한 후 방금 등록한 **Custom MCP**를 클릭합니다.
    2. **Actions > Refresh Custom Actions**를 클릭하여 MCP 도구(Tools)들을 최종 활성화합니다.
-   <img width="1464" height="747" alt="Screenshot 2026-05-09 at 8 05 47 PM" src="https://github.com/user-attachments/assets/9aee5a7f-6dfe-4da6-89b8-50691795722e" />
+   <img width="1622" height="444" alt="Screenshot 2026-05-18 at 12 52 29 AM" src="https://github.com/user-attachments/assets/667e9609-99c9-4dbf-87e7-3813b2d08c47" />
+
 
 
    ---
