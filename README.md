@@ -134,7 +134,7 @@
    1. 새 브라우저 탭을 열고 **Gemini Enterprise 콘솔**로 이동합니다.
    2. 데이터 스토어(Data Store) 메뉴에서 **Create data store**를 클릭 후 **Custom MCP Server**를 클릭합니다.
    3. 인증 및 연결을 위해 다음 필수 정보들을 입력합니다.
-   - **MCP 서버 URL:** `https://<본인의_Cloud_Run_도메인>/mcp` (또는 환경에 따라 `/mcp` 없이 입력)
+      - **MCP 서버 URL:** `https://<본인의_Cloud_Run_도메인>/mcp` (또는 환경에 따라 `/mcp` 없이 입력)
       - **승인 URL:** `https://accounts.google.com/o/oauth2/v2/auth`
       - **승인 URL 매개변수:** `&access_type=offline&prompt=consent`
       - **토큰 URL:** `https://oauth2.googleapis.com/token`
