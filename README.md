@@ -87,7 +87,7 @@
 
    ---
 
-   ### Task 4. Build and Deploy the Atlassian MCP Server
+   ### Task 4. Build and Deploy Google Drive Summarizer MCP Server
    구글 드라이브 파일 요약을 수행하는 MCP 서버를 Cloud Run에 배포합니다.
    
    1. Cloud Shell 환경에서 아래 명령어를 실행하여 리포지토리를 클론하고 배포를 진행합니다.
@@ -104,7 +104,7 @@
    ```
    
    > **⚠️ 중요 (보안 및 아키텍처):**
-   > 현재 설정은 Cloud Run 자체의 접근 제어를 사용하면 Gemini Enterprise가 보내는 토큰과 충돌이 발생합니다. 따라서 서버 자체는 누구나 접근 가능하게 열어두되(`--allow-unauthenticated`), **FastMCP 서버 내부에서 구글 토큰의 유효성을 검증**하는 구조를 취하고 있습니다.
+   > Cloud Run 의 접근 제어는 IAM 인증 방식이어서 Gemini Enterprise 의 OAuth 방식과 호환되지 않습니다. 따라서 서버 자체는 누구나 접근 가능하게 열어두되(`--allow-unauthenticated`), **FastMCP 서버 내부에서 구글 토큰의 유효성을 검증**하는 구조를 취하고 있습니다.
 
    ---
    ### Task 5. Add Permissions to Cloud Run 
