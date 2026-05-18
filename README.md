@@ -83,7 +83,8 @@
       ```bash
       uv run deploy.py
       ```
-
+   9. 배포 완료 후 Gemini Enterprise > 생성한 app > agent에서 배포된 agent를 확인하실 수 있습니다. 
+   (`deploy.py` 안에 engine 배포 후 gemini enterprise app 안에 agnet 등록까지 다 구현되어있습니다.)
    ---
 
    ### Task 4. Build and Deploy Google Drive Summarizer MCP Server
