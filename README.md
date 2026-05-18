@@ -107,7 +107,8 @@
    > 현재 설정은 Cloud Run 자체의 접근 제어를 사용하면 Gemini Enterprise가 보내는 토큰과 충돌이 발생합니다. 따라서 서버 자체는 누구나 접근 가능하게 열어두되(`--allow-unauthenticated`), **FastMCP 서버 내부에서 구글 토큰의 유효성을 검증**하는 구조를 취하고 있습니다.
 
    ---
-   ### Task 5. Add Permissions to Cloud Run
+   ### Task 5. Add Permissions to Cloud Run 
+   (Optional - Task 7이 동작안할시 적용)
    배포된 Cloud Run 서비스가 외부(Gemini Enterprise)로부터 요청을 받을 수 있도록 미인증 호출 권한을 명확히 설정합니다.
 
    1. Google Cloud Console 검색창에서 **Cloud Run**을 검색하여 이동한 후 **Services** 목록을 확인합니다.
