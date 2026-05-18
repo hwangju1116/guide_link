@@ -83,7 +83,6 @@
       ```bash
       uv run deploy.py
       ```
-   9. 배포 완료 후 터미널에 출력되는 `REASONING_ENGINE_ID`를 확인하고 기록해 둡니다.
 
    ---
 
