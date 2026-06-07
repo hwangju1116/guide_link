@@ -123,7 +123,8 @@
    2. **Connector** 아이콘을 클릭한 후, 등록한 **mcp data connector** 옆의 **Authorize** 버튼을 눌러 구글 드라이브 연동을 승인해 줍니다.
    3. **Google Search** 는 `off` 해줍니다.
 
-   <img width="1105" height="604" alt="Screenshot 2026-05-17 at 3 12 23 AM" src="https://github.com/user-attachments/assets/9385cb39-8c47-421e-8c12-cb81f3335665" />
+   <img width="1460" height="824" alt="Screenshot 2026-06-07 at 12 35 51 PM" src="https://github.com/user-attachments/assets/01c53388-386e-4cf7-a729-d0f724b11f06" />
+
 
    4. 채팅창에 아래 프롬프트를 입력하고 연동 시나리오가 정상 작동하는지 확인합니다.
       
