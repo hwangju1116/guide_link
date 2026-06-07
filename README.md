@@ -35,7 +35,6 @@
    4. 생성된 앱의 **ID(`App ID`)**를 별도로 기록해 둡니다. *(이후 환경 설정 파일에 사용됩니다.)*
 
    ---
-   ---
 
    ### Task 3. Open JupyterLab Terminal
    에이전트 배포 및 MCP 서버 배포를 위해 JupyterLab 터미널을 실행합니다.
@@ -45,6 +44,7 @@
    3. JupyterLab 런처의 *Other* 섹션 아래에 있는 **Terminal**을 클릭하여 새 터미널 세션을 엽니다.
    <img width="1910" height="923" alt="Screenshot 2026-05-07 at 3 35 58 PM" src="https://github.com/user-attachments/assets/abc48e1b-04da-48e8-9265-fd61bca48b55" />
 
+   ---
 
    ### Task 4. Build and Deploy Google Drive Summarizer MCP Server
    구글 드라이브 파일 요약을 수행하는 MCP 서버를 Cloud Run에 배포합니다.
