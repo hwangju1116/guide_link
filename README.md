@@ -100,9 +100,7 @@
    ### Task 6. Activate Custom MCP Method
    1. **App > Data stores**로 이동한 후 방금 등록한 **Custom MCP**를 클릭합니다.
    2. **Actions > Refresh Custom Actions**를 클릭하여 MCP 도구(Tools)들을 최종 활성화합니다.
-   3. `Google Search`는 비활성화합니다.
-      
-   <img width="1460" height="824" alt="Screenshot 2026-06-07 at 12 35 51 PM" src="https://github.com/user-attachments/assets/b954ca6b-a205-4ab8-9156-b72b29f13738" />
+   <img width="1622" height="444" alt="Screenshot 2026-05-18 at 12 52 29 AM" src="https://github.com/user-attachments/assets/852fc039-f67c-473a-bbda-e79e7afebb9a" />
 
    #### 💡 [선택 사항] 활성화 실패 또는 연동 오류 발생 시 해결 방법 (Cloud Run 권한 설정)
    배포된 Cloud Run 서비스가 외부(Gemini Enterprise)로부터 요청을 받을 수 있도록 미인증 호출 권한을 명확히 설정합니다.
