@@ -100,10 +100,9 @@
    ### Task 6. Activate Custom MCP Method
    1. **App > Data stores**로 이동한 후 방금 등록한 **Custom MCP**를 클릭합니다.
    2. **Actions > Refresh Custom Actions**를 클릭하여 MCP 도구(Tools)들을 최종 활성화합니다.
-   <img width="1622" height="444" alt="Screenshot 2026-05-18 at 12 52 29 AM" src="https://github.com/user-attachments/assets/667e9609-99c9-4dbf-87e7-3813b2d08c47" />
-
-
-
+   3. `Google Search`는 비활성화합니다.
+      
+   <img width="1460" height="824" alt="Screenshot 2026-06-07 at 12 35 51 PM" src="https://github.com/user-attachments/assets/b954ca6b-a205-4ab8-9156-b72b29f13738" />
 
    #### 💡 [선택 사항] 활성화 실패 또는 연동 오류 발생 시 해결 방법 (Cloud Run 권한 설정)
    배포된 Cloud Run 서비스가 외부(Gemini Enterprise)로부터 요청을 받을 수 있도록 미인증 호출 권한을 명확히 설정합니다.
@@ -161,6 +160,8 @@
       # 본인의 GEMINI_ENTERPRISE_APP_ID를 입력해주세요.
       GEMINI_ENTERPRISE_APP_ID = "[본인의_GEMINI_ENTERPRISE_APP_ID]"
       ```
+      <img width="1459" height="685" alt="Screenshot 2026-06-07 at 1 05 18 PM" src="https://github.com/user-attachments/assets/36367cb2-e4f4-4629-acf1-1308da600fd6" />
+
       그리고 `a2ui-agent/generate_auth.sh`로 가서 아래 내용에 아까 복사해둔 Client ID & Client Secret을 넣어줍니다.
       ```bash
       # 아래 값들을 찾아서 실제 발급받은 값으로 수정해주세요.
