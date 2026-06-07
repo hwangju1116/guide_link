@@ -35,8 +35,18 @@
    4. 생성된 앱의 **ID(`App ID`)**를 별도로 기록해 둡니다. *(이후 환경 설정 파일에 사용됩니다.)*
 
    ---
+   ---
 
-   ### Task 3. Build and Deploy Google Drive Summarizer MCP Server
+   ### Task 3. Open JupyterLab Terminal
+   에이전트 배포 및 MCP 서버 배포를 위해 JupyterLab 터미널을 실행합니다.
+   
+   1. 내비게이션 메뉴에서 **Gemini Enterprise Agent Platform > Workbench**를 클릭합니다.
+   2. 할당된 인스턴스 옆의 **Open JupyterLab**을 클릭합니다.
+   3. JupyterLab 런처의 *Other* 섹션 아래에 있는 **Terminal**을 클릭하여 새 터미널 세션을 엽니다.
+   <img width="1910" height="923" alt="Screenshot 2026-05-07 at 3 35 58 PM" src="https://github.com/user-attachments/assets/abc48e1b-04da-48e8-9265-fd61bca48b55" />
+
+
+   ### Task 4. Build and Deploy Google Drive Summarizer MCP Server
    구글 드라이브 파일 요약을 수행하는 MCP 서버를 Cloud Run에 배포합니다.
 
    #### 📝 제공 기능 (Tools)
@@ -44,7 +54,7 @@
    해당 MCP 서버는 현재 다음의 도구를 지원합니다:
    * `summarize_drive_files`: 사용자의 구글 드라이브 내 텍스트 파일(상위 5개)을 가져와서 요약본을 제공합니다. (현재 `text/plain` 파일 형식 지원)
    
-   1. Cloud Shell 환경에서 아래 명령어를 실행하여 리포지토리를 클론하고 배포를 진행합니다.
+   1. JupyterLab 터미널에서 아래 명령어를 실행하여 리포지토리를 클론하고 배포를 진행합니다.
    
    ```bash
    git clone https://github.com/hwangju1116/gdrive_reader_mcp.git
@@ -62,7 +72,7 @@
 
    ---
    
-   ### Task 4. Register the MCP Data Store in Gemini Enterprise
+   ### Task 5. Register the MCP Data Store in Gemini Enterprise
    
    Gemini Enterprise에 배포한 Custom MCP 서버를 등록합니다.
    
@@ -87,7 +97,7 @@
 
    ---
 
-   ### Task 5. Activate Custom MCP Method
+   ### Task 6. Activate Custom MCP Method
    1. **App > Data stores**로 이동한 후 방금 등록한 **Custom MCP**를 클릭합니다.
    2. **Actions > Refresh Custom Actions**를 클릭하여 MCP 도구(Tools)들을 최종 활성화합니다.
    <img width="1622" height="444" alt="Screenshot 2026-05-18 at 12 52 29 AM" src="https://github.com/user-attachments/assets/667e9609-99c9-4dbf-87e7-3813b2d08c47" />
@@ -115,7 +125,7 @@
    
    ---
 
-   ### Task 6. Automate Workflows with Gemini
+   ### Task 7. Automate Workflows with Gemini
 
    모든 설정이 완료되었습니다. 이제 에이전트와 연동하여 실제 업무 자동화 워크플로우를 테스트합니다.
    
@@ -123,8 +133,7 @@
    2. **Connector** 아이콘을 클릭한 후, 등록한 **mcp data connector** 옆의 **Authorize** 버튼을 눌러 구글 드라이브 연동을 승인해 줍니다.
    3. **Google Search** 는 `off` 해줍니다.
 
-   <img width="1460" height="824" alt="Screenshot 2026-06-07 at 12 35 51 PM" src="https://github.com/user-attachments/assets/01c53388-386e-4cf7-a729-d0f724b11f06" />
-
+   <img width="1105" height="604" alt="Screenshot 2026-05-17 at 3 12 23 AM" src="https://github.com/user-attachments/assets/9385cb39-8c47-421e-8c12-cb81f3335665" />
 
    4. 채팅창에 아래 프롬프트를 입력하고 연동 시나리오가 정상 작동하는지 확인합니다.
       
@@ -133,7 +142,7 @@
       
    ---
 
-   ### Task 7. Deploy the A2UI Agent
+   ### Task 8. Deploy the A2UI Agent
    JupyterLab 터미널을 통해 삼성 제품 스펙 비교 에이전트(A2UI Agent)를 배포합니다.
    
    #### 📝 주요 기능 (Features)
@@ -141,37 +150,29 @@
    * **삼성 제품 스펙 비교**: 갤럭시 스마트폰, 노트북 등 다양한 삼성 제품의 세부 사양(스펙)을 다차원으로 비교 분석합니다.
    * **시각적 UI 제공 (A2UI)**: 단순 텍스트 답변을 넘어, 사용자가 한눈에 직관적으로 스펙을 비교할 수 있도록 구조화된 사용자 인터페이스(UI)를 동적으로 생성하여 제공합니다.
 
-   1. 내비게이션 메뉴에서 **Gemini Enterprise Agent Platform > Workbench**를 클릭합니다.
-   2. 할당된 인스턴스 옆의 **Open JupyterLab**을 클릭합니다.
-   3. JupyterLab 런처의 *Other* 섹션 아래에 있는 **Terminal**을 클릭하여 새 터미널 세션을 엽니다.
-   <img width="1910" height="923" alt="Screenshot 2026-05-07 at 3 35 58 PM" src="https://github.com/user-attachments/assets/abc48e1b-04da-48e8-9265-fd61bca48b55" />
-
-   4. 아래 명령어를 실행하여 리포지토리를 복제하고 의존성 관리 도구(`uv`)를 설치한 뒤 환경 설정 파일을 생성합니다.
+   1. 아래 명령어를 실행하여 리포지토리를 복제하고 의존성 관리 도구(`uv`)를 설치한 뒤 환경 설정 파일을 생성합니다.
       ```bash
       git clone https://github.com/hwangju1116/a2ui-agent.git
       cd a2ui-agent
       pip install uv
       ```
-   5. `a2ui-agent/deploy.py`로 와서 아래 내용을 수정합니다.
+   2. `a2ui-agent/deploy.py`로 와서 아래 내용을 수정합니다.
       ```bash
       # 본인의 GEMINI_ENTERPRISE_APP_ID를 입력해주세요.
       GEMINI_ENTERPRISE_APP_ID = "[본인의_GEMINI_ENTERPRISE_APP_ID]"
       ```
-      <img width="1459" height="685" alt="Screenshot 2026-06-07 at 1 05 18 PM" src="https://github.com/user-attachments/assets/d424a672-8b8c-4757-aa40-e2a0e21a0bf6" />
-
-      그리고 `a2ui-agent/generate_auth.sh`로 가서 아래 내용에 이전에 복사해둔 Client ID & Client Secret을 넣어줍니다.
+      그리고 `a2ui-agent/generate_auth.sh`로 가서 아래 내용에 아까 복사해둔 Client ID & Client Secret을 넣어줍니다.
       ```bash
       # 아래 값들을 찾아서 실제 발급받은 값으로 수정해주세요.
       CLIENT_ID="[본인의_Client_ID]"
       CLIENT_SECRET="[본인의_Client_Secret]"
       ```
   
-   6. 터미널로 돌아와 아래 명령어를 실행하여 에이전트를 배포합니다.
+   3. 터미널로 돌아와 아래 명령어를 실행하여 에이전트를 배포합니다.
       ```bash
       chmod +x generate_auth.sh
       ./generate_auth.sh
-      
       uv run deploy.py
       ```
-   7. 배포 완료 후 Gemini Enterprise > 생성한 app > agent에서 배포된 agent를 확인하실 수 있습니다. 
+   4. 배포 완료 후 Gemini Enterprise > 생성한 app > agent에서 배포된 agent를 확인하실 수 있습니다. 
    (`deploy.py` 안에 engine 배포 후 gemini enterprise app 안에 agnet 등록까지 다 구현되어있습니다.)
