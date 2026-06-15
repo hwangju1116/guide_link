@@ -3,7 +3,7 @@
    ## 📋 Overview
    이 실습에서는 Gemini Enterprise Agent Platform을 기반으로 두 가지 에이전트를 배포하고 연동합니다.
    1. **구글 드라이브 파일 내용을 읽고 요약하는 MCP(Model Context Protocol) 서버**
-   2. **A2UI 기반 삼성 제품 스펙 비교 에이전트**
+   2. **A2UI 기반 기기 제품 스펙 비교 에이전트**
 
    ---
 
